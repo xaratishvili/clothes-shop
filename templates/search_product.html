@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    <h2>Searched Products:</h2>
+    <div class="row">
+    {% if searched_products.exists %} <!-- Check if there are products -->
+        {% for product in searched_products %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="view overlay">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                        <a href="/product/{{ product.id }}/">
+                            <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products found matching your search.</p>
+    {% endif %}
+</div>
+
+    </div>
+
+    <h2>All Products:</h2>
+<!--    <ul>-->
+<!--    {% for product in all_products %}  &lt;!&ndash; Correct usage &ndash;&gt;-->
+<!--        <li>{{ product.title }}</li>-->
+<!--    {% endfor %}-->
+<!--    </ul>-->
+    <div class="row">
+        {% for Product in all_products %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="view overlay">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                    <a href="/product/{{ product.id }}/">
+                        <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Price: ${{ product.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+{% endblock content %}
